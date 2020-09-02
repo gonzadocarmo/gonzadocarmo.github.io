@@ -1,5 +1,5 @@
 import { string, number, object } from 'yup';
-import * as yup from 'yup'; // for everything
+import * as yup from 'yup';
 
 export default yup.object().shape({
   minerals: yup
@@ -19,5 +19,6 @@ export default yup.object().shape({
         ),
       })
     )
+    .required()
     .min(1),
 });
