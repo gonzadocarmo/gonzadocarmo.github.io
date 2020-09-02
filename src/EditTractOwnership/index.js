@@ -148,30 +148,34 @@ const renderForm = ({ values, errors, touched }, removeMineral, onChange) => {
           </RForm.Row>
           <RForm.Row key={`mineral-${idx}-npris`}>
             <Col>
-              <Form>
-                <FieldArray name={`minerals[${idx}].npris`}>
-                  {(arrHelper) => {
-                    return (
-                      <Fragment>
-                        {renderNPRIForm(
-                          { values, errors, touched },
-                          idx,
-                          (npriIndex) => {
-                            arrHelper.remove(npriIndex);
-                          }
-                        )}
-                        {
-                          <Button
-                            onClick={() => arrHelper.push({ id: uuidv4() })}
-                          >
-                            Add NPRI
-                          </Button>
+              <FieldArray name={`minerals[${idx}].npris`}>
+                {(arrHelper) => {
+                  return (
+                    <Fragment>
+                      {renderNPRIForm(
+                        { values, errors, touched },
+                        idx,
+                        (npriIndex) => {
+                          arrHelper.remove(npriIndex);
                         }
-                      </Fragment>
-                    );
-                  }}
-                </FieldArray>
-              </Form>
+                      )}
+                      {
+                        <Button
+                          onClick={() =>
+                            arrHelper.push({
+                              id: uuidv4(),
+                              owner: '',
+                              lease: '',
+                            })
+                          }
+                        >
+                          Add NPRI
+                        </Button>
+                      }
+                    </Fragment>
+                  );
+                }}
+              </FieldArray>
             </Col>
           </RForm.Row>
         </Container>
