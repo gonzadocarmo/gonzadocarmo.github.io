@@ -200,57 +200,67 @@ export default ({ value = [], onChange = () => {} }) => {
         <Col>Lease</Col>
       </Row>
       <Row>
-        <Formik
-          validationSchema={formSchema}
-          initialValues={{ minerals: value }}
-          onSubmit={() => {
-            console.log('sending form....');
-            setIsLoading(true);
-            setTimeout(() => setIsLoading(false), 3000);
-          }}
-        >
-          {({ values, errors, touched }) => {
-            const isFormValid = Object.keys(errors).length === 0;
-            return (
-              <Form>
-                <Row>
-                  <FieldArray name="minerals">
-                    {(arrayHelpers) => {
-                      return (
-                        <Fragment>
-                          <Row>
-                            {renderForm(
-                              { values, errors, touched },
-                              (minIndex) => {
-                                arrayHelpers.remove(minIndex);
-                              },
-                              () => {
-                                console.info(
-                                  'Every time you do any of the above actions, the onChange prop should be fired'
-                                );
-                                onChange(values.minerals);
-                              }
-                            )}
-                          </Row>
-                          <Row style={{ marginTop: '2rem' }}>
-                            {renderAddButton(() =>
-                              arrayHelpers.push({ id: uuidv4() })
-                            )}
-                          </Row>
-                        </Fragment>
-                      );
-                    }}
-                  </FieldArray>
-                </Row>
-                <Row style={{ marginTop: '2rem' }}>
-                  <Button type="submit" disabled={!isFormValid}>
-                    SEND
-                  </Button>
-                </Row>
-              </Form>
-            );
-          }}
-        </Formik>
+        <Col>
+          <Formik
+            validationSchema={formSchema}
+            initialValues={{ minerals: value }}
+            onSubmit={() => {
+              console.log('sending form....');
+              setIsLoading(true);
+              setTimeout(() => setIsLoading(false), 3000);
+            }}
+          >
+            {({ values, errors, touched }) => {
+              const isFormValid = Object.keys(errors).length === 0;
+              return (
+                <Form>
+                  <Row>
+                    <Col>
+                      <FieldArray name="minerals">
+                        {(arrayHelpers) => {
+                          return (
+                            <Fragment>
+                              <Row>
+                                <Col>
+                                  {renderForm(
+                                    { values, errors, touched },
+                                    (minIndex) => {
+                                      arrayHelpers.remove(minIndex);
+                                    },
+                                    () => {
+                                      console.info(
+                                        'Every time you do any of the above actions, the onChange prop should be fired'
+                                      );
+                                      onChange(values.minerals);
+                                    }
+                                  )}
+                                </Col>
+                              </Row>
+                              <Row style={{ marginTop: '2rem' }}>
+                                <Col>
+                                  {renderAddButton(() =>
+                                    arrayHelpers.push({ id: uuidv4() })
+                                  )}
+                                </Col>
+                              </Row>
+                            </Fragment>
+                          );
+                        }}
+                      </FieldArray>
+                    </Col>
+                  </Row>
+                  <Row style={{ marginTop: '2rem' }}>
+                    <Col>
+                      <Button type="submit" disabled={!isFormValid}>
+                        SEND
+                      </Button>
+                    </Col>
+                  </Row>
+                </Form>
+              );
+            }}
+          </Formik>
+        </Col>
       </Row>
     </Fragment>
   );
